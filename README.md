@@ -1,5 +1,5 @@
 # Gittutorial
-Records for working, thoughts for problems and notes for learning
+## Records for working, thoughts for problems and notes for learning
 
 *Mao Yuxuan, AE Intern, Espressif*  
 
