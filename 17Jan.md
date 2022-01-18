@@ -5,6 +5,10 @@
 熟悉Ubuntu		15:00-15:30
 学习Git			15:30-19:00
 
+
+
+feature
+
 主要参考资料：https://backlog.com/git-tutorial/tw/intro/intro1_1.html
 一、名词解释
 Git:版本控制工具，为linux内核开发（分散式）
