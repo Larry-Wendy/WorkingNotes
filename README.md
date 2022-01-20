@@ -5,9 +5,10 @@
 
 * 17 Jan: Git&Github
 * 18 Jan: Linux
+* 19 Jan: Basic Use of ESP-idf (for VS Code & Eclipse)
+* 20 Jan: 
 
 
 
 *Mao Yuxuan, AE Intern, Espressif*  
-
 
