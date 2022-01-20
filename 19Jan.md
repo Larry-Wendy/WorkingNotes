@@ -82,8 +82,10 @@
 | 下载相关工具     | cd ~/esp/esp-idf<br/>./install.sh esp32s3                    |
 |                  | cd ~/esp/esp-idf<br/>export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"<br/>./install.sh |
 | **设置环境变量** | . $HOME/esp/esp-idf/export.sh                                |
-| *或*             | *在`/dev/bash.bashrc`中加入一行`alias get-idf='. $HOME/esp/esp-idf/export.sh'`以创建别名* |
+| *或*             | *在`/etc/bash.bashrc`中加入一行`alias get-idf='. $HOME/esp/esp-idf/export.sh'`以创建别名后重启终端* |
 |                  | **get-idf** （每个终端都要输一次）                           |
+| 且               | export IOT_SOLUTION_PATH=~/esp/esp-iot-solution              |
+| *或*             | *在`/etc/bash.bashrc`中加入一行`alias get-solution='export IOT_SOLUTION_PATH=~/esp/esp-iot-solution'`以创建别名* |
 
 
 
@@ -96,6 +98,8 @@
 cp /home/maoyuxuan/esp/esp-idf/examples/get-started/hello_world my_new_project2 -r
 
 2. get-idf
+
+2. get-slt (使用esp-iot-solution需要在CMakeLists中加入`include($ENV{IOT_SOLUTION_PATH}/component.cmake)`)
 
 3. cd my_new_project2
 
