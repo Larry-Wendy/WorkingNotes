@@ -195,3 +195,8 @@ vi `filename`
 | shutdown now    | 关机                            |
 | reboot          | 重启                            |
 
+截取整个屏幕并将其保存到剪贴板： Ctrl + Print Screen. 
+
+将特定区域的屏幕截图复制到剪贴板： Shift + Ctrl + Print Screen. 
+
+将当前窗口的截图保存到剪贴板： Ctrl + Alt + Print Screen.

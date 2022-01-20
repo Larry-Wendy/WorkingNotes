@@ -111,3 +111,39 @@ cp /home/maoyuxuan/esp/esp-idf/examples/get-started/hello_world my_new_project2 
 
 
 
+### 五、设置菜单
+
+[设置选项解释](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32s3/api-reference/kconfig.html)
+
+* Build type: 构建二进制文件的方式
+* Application manager
+  * 时间戳
+* Bootloader config
+  * Bootloader是嵌入式系统在加电后执行的第一段代码，在它完成CPU和相关硬件的初始化之后，再将操作系统映像或固化的嵌入式应用程序装载到内存中然后跳转到操作系统所在的空间，启动操作系统运行。
+* Security features
+* Boot ROM Behavior
+* Serial flasher config
+  * Flash SPI
+  * 自动复位
+  * 设置波特率
+* Partition Table
+  * 分区表决定了应用程序、数据和其他资源预计会在哪里找到。
+* **Compiler options**
+  * （每个example也有设置）
+  * 编译器优化级别
+  * 替换二进制文件中的ESP-IDF和项目路径
+  * 发现那些试图写入字符串常量的代码。
+* Component config
+  * 蓝牙
+  * 常见的ESP相关
+    * 主频
+    * 指令缓存
+    * 外部、SPI连接的RAM
+    * 驱动设置
+  * ESP系统设置
+  * 以太网
+  * 硬件设置
+  * HTTP服务器
+  * LCD和触摸面板
+  * 电源管理
+  * 无线网络
