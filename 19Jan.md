@@ -147,3 +147,41 @@ cp /home/maoyuxuan/esp/esp-idf/examples/get-started/hello_world my_new_project2 
   * LCD和触摸面板
   * 电源管理
   * 无线网络
+
+
+
+### 六、工程结构
+
+ESP-IDF 中的所有软件均以“组件”的形式提供，比如操作系统、网络协议栈、Wi-Fi 驱动程序、以及 HTTP 服务器等中间件等等。在这种基于“组件”的架构下，你可以轻松使用更多自己研发或第三方提供的组件。
+
+<img src="https://docs.espressif.com/projects/espressif-esp-moonlight/zh_CN/latest/_images/app_structure.png" alt="Application’s Structure" style="zoom:50%;" />
+
+- CMakeLists.txt 和 Makefile 文件，用于控制工程的编译过程。
+- components 文件夹，包含该项目的组件文件夹。
+- main 文件夹，一个特殊的组件，默认编译这里面的代码，应用程序必须包含一个 **main** 组件。
+- 一个可选的 *sdkconfig.defaults* 文件，存放应用程序默认的 SDK 配置。
+
+在编译完成后会生成以下文件:
+
+- build 文件夹，存放编译输出的文件。
+- sdkconfig 文件，定义项目的所有配置。这个文件无需手动修改，编译时会自动从你在 menuconfig 中的设置来更新该文件。
+
+### 七、Flash分区
+
+<img src="https://docs.espressif.com/projects/espressif-esp-moonlight/zh_CN/latest/_images/flash_partitions_intro.png" alt="Flash Partitions" style="zoom: 33%;" />
+
+通过分区表将 flash 划分为多个逻辑分区
+
+创建此分区文件后，我们还需在 menuconfig 中配置使用该自定义分区，而非默认分区。你可以在 `Partition Table ---> Partition Table` 中选择 `Custom partition table CSV`，同时在下面指定分区表文件名。 
+
+固件升级：
+
+- 在 menuconfig 中的 `Example Configuration ---> firmware upgrade url endpoint` 进行配置。示例中使用的是本地的 http server，所以这里的 IP 地址需改成本机的。
+- 使用 `esp_http_client_config_t` 配置 OTA 升级源，包括升级地址的 URL，用于验证服务器的 CA 证书（升级从此服务器处获取）。
+- 然后执行 `esp_https_ota()` API 启动固件升级，固件升级成功后将设备重启。
+
+
+
+*OTA 升级过程*：
+
+![OTA Workflow](https://docs.espressif.com/projects/espressif-esp-moonlight/zh_CN/latest/_images/ota_workflow.png)
