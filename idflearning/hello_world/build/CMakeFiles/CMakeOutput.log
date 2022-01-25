@@ -400,3 +400,5 @@ Run Build Command(s):/home/maoyuxuan/.espressif/tools/ninja/1.10.2/ninja cmTC_2f
 
 
 
+The target system is: Generic -  - 
+The host system is: Linux - 5.4.0-96-generic - x86_64

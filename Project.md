@@ -24,6 +24,8 @@
 5. **不要出现别的控制芯片** -> 不用舵机等
 6. 结合AI -> 语音识别、图像识别、SLAM、路径规划......
 
+
+
 ## 二、背景调研
 
 ### 1. 之前做过的项目
@@ -35,6 +37,8 @@
 | 蛇形机械臂                        | Arduino Uno裸                                                | 18自由度串联机械臂                              | 按形状拟合、复杂腔道内运动         | 不方便用于移动平台           |
 | *多机器人小车系统*                | *Arduino Uno裸*                                              | *TurtleBot*                                     | *移动、分布式控制*                 | *适合slam和车载机械臂*       |
 | *机械臂送餐小车(见`小R科技小车`)* | *Arduino Mega裸*                                             | *履带、3自由度串联机械臂、储仓、摄像头等传感器* | *移动、抓取、储存、放置、颜色识别* | *国内常见的构型*             |
+
+
 
 #### 1.1 跳跃机器人
 
@@ -58,7 +62,7 @@
 
 
 
-### 2. 相关开源项目
+### 2. 相关项目
 
 #### 2.1 [TurtleBot](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 
@@ -96,13 +100,19 @@
 
 ![finder](https://github.com/whatrocks/cozmo-tensorflow/raw/master/assets/cozmo-detective.gif)
 
+
+
 #### 2.4 JetRacer
 
 ![img](https://user-images.githubusercontent.com/4212806/67442981-ce459e00-f5b7-11e9-9c8a-14ab360decb8.gif)
 
+
+
 #### 2.5 斯坦佛小狗
 
 ![img](https://pro18cda46f-pic3.ysjianzhan.cn/upload/MiniPupper.jpg)
+
+
 
 #### 3. 其他资料
 
