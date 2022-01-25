@@ -9,6 +9,7 @@
 * 20 Jan: ESP SoCs, Modules and DevKits
 * 21 Jan: ESP projects
 * 24 Jan: ROS, Micro ROS and Project background research
+* 25 Jan: ROS2, Micro ROS and Project conceptional design
 
 
 

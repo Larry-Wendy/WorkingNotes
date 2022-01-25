@@ -224,7 +224,39 @@ rosservice uri          输出服务的ROSRPC uri
 - rosparam使得我们能够存储并操作ROS参数服务器（Parameter Server）上的数据。
 - 参数服务器能够存储整型、浮点、布尔、字符串、字典和列表等数据类型。（类似matlab工作区）
 
+### 6. 常用工具
+
+<img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125151654028.png" alt="image-20220125151654028" style="zoom:50%;" />
+
+<img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125151746231.png" alt="image-20220125151746231" style="zoom:50%;" />
+
+<img src="https://pic3.zhimg.com/80/v2-8644223a16426700b94d158a67c1bbd6_720w.jpg" alt="img" style="zoom:50%;" />
+
+<img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125152045586.png" alt="image-20220125152045586" style="zoom:50%;" />
+
+| 工具      | 功能                     | Micro ROS |
+| --------- | ------------------------ | --------- |
+| Gazebo    | 仿真                     |           |
+| Webots    | 仿真                     | (ROS2)    |
+| RViz      | 传感器数据可视化(上位机) | yes       |
+| Crazyfile | 飞控系统(下位机)         | yes       |
+| Moveit2   | 机械臂控制               | yes       |
+| rqt       | 传感器显示               | yes       |
+
 
 
 ## 二、MicroRos
 
+**微型ROS是一组分层的库，它们可以直接重用ROS 2的库，也可以使其适应资源受限设备的功能和需求。**
+
+目前，micro-ROS 只支持 ROS 2 API 的一部分(发布、订阅、类型支持和等待集目前都支持)
+
+![img](http://p5.itc.cn/q_70/images03/20200916/046d8402c1c64f01b417bde1f6f07bbf.png)
+
+1: **先从ROS基础进行原型开发，开发成熟之后再考虑代码移植**（ROS->ROS2）或者平台移植（Linux->Windows）
+
+2: 如果已经在 ROS1 中为一个或多个机器人建立了代码库，或者对于一个拥有数十个开发人员的完整组织，则**切换到 ROS2 可能代表大量工作**。
+
+
+
+[ROS到ROS2(Micro-ROS)的迁移指南](https://docs.ros.org/en/foxy/Contributing/Migration-Guide.html)
