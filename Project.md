@@ -6,7 +6,7 @@
 
 
 
-### **目标：**（1、2为基本目标，3、4可选）
+### **目标：**（1、2、3为基本目标，4可选）
 
 1. 将MicroROS系统移植到ESP32-S3，开发一款移动系统主控平台
 2. 开发一款移动平台（如小车），实现简单控制
@@ -46,7 +46,13 @@
 
 <img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125112824699.png" alt="image-20220125112824699" style="zoom:67%;" />
 
+跳跃机器人  STM32F1裸
 
+双轮、跳跃垫板、弹簧、凸轮
+
+移动、跳跃、姿态控制
+
+机械工艺要求高，弹跳效果一般
 
 #### 1.2 [VEX小车](https://www.bilibili.com/video/BV1K7411z7KV?from=search&seid=13744581929295231384&spm_id_from=333.337.0.0)
 
@@ -54,11 +60,25 @@
 
 <img src="https://i.ytimg.com/vi/QJI29QI5COM/maxresdefault.jpg" alt="VEX 2019 Tower Takeover RI3D Reveal - YouTube" style="zoom: 50%;" />
 
+TowerTakeover竞赛小车  [VEX Brain](https://www.vexrobotics.com/276-4810.html)(FPGA)  
 
+链轮、夹头、货架  
+
+移动、夹取、储存、堆叠方块  
+
+功能较限制
 
 #### 1.3 蛇形机械臂
 
 <img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125113607650.png" alt="image-20220125113607650" style="zoom:50%;" />
+
+蛇形机械臂  Arduino Uno裸  
+
+18自由度串联机械臂  
+
+按形状拟合、复杂腔道内运动  
+
+不方便用于移动平台
 
 
 
@@ -68,11 +88,11 @@
 
 
 
-<img src="https://www.turtlebot.com/assets/images/turtlebot_family.png" alt="TurtleBot Family" style="zoom: 67%;" />	
+<img src="https://www.turtlebot.com/assets/images/turtlebot_family.png" alt="TurtleBot Family" style="zoom: 100%;" />	
 
 * 低成本的个人机器人工具包与开源软件
 
-* TurtleBot 套件包括一个移动基座，2D/3D 距离传感器，笔记本电脑或单板电脑，以及 TurtleBot 安装硬件套件。
+* TurtleBot 套件包括一个移动基座，2D/3D 距离传感器，单片机，以及 TurtleBot 安装硬件套件。
 * [开源](https://github.com/ROBOTIS-GIT/turtlebot3.git)，用户还可以从 ROS wiki 下载 TurtleBot SDK。
 * 易于购买，建造和组装，使用现成的消费品和零件，可以很容易地从标准的材料。
 * 社区维护，许多大学正在使用 TurtleBot 来教授机器人入门课程
@@ -93,6 +113,13 @@
     <img src="https://gd3.alicdn.com/imgextra/i3/94674554/TB2duJ1ruuSBuNjSsziXXbq8pXa_!!94674554.jpg" style="zoom:40%;"/>
     <img src="https://gd2.alicdn.com/imgextra/i3/94674554/O1CN01vKgOER1jVmQ3ljKzN_!!94674554-0-picasso.jpg" alt="img" style="zoom:40%;" />
 </figure>
+*机械臂送餐小车(见`小R科技小车`)*  *Arduino Mega裸*  
+
+*履带、3自由度串联机械臂、储仓、摄像头等传感器*  
+
+*移动、抓取、储存、放置、颜色识别* 
+
+ *国内常见的构型*
 
 
 
@@ -100,7 +127,7 @@
 
 ![finder](https://github.com/whatrocks/cozmo-tensorflow/raw/master/assets/cozmo-detective.gif)
 
-
+<img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220126172928581.png" alt="image-20220126172928581" style="zoom:50%;" />
 
 #### 2.4 JetRacer
 
@@ -126,12 +153,12 @@
 
 #### 3.1 构型
 
-| 方案          | 实现难度-机械控制 | 实现难度-AI | 资源情况                                                     |
-| ------------- | ----------------- | ----------- | ------------------------------------------------------------ |
-| ESP-Racer     | 中(2)             | 高(1)       | MIT License<br />基于Jetson Nano(GPU)<br />[Jupyter](https://github.com/NVIDIA-AI-IOT/jetracer.git)<br />资料少 |
-| ESP-TurtleBot | 低(3)             | 中(3)       | Apache-2.0 License (few BSD3, GPL3)<br />基于树莓派<br />Python ROS/[MicroROS](https://github.com/micro-ROS/micro-ROS_kobuki_demo) |
-| ESP-Puppy     | 中(1)             | 中(2)       | MIT License<br />基于树莓派4/3B<br />[Python](https://github.com/stanfordroboticsclub/StanfordQuadruped)/[ROS Kinetic](https://github.com/mike4192/spotMicro)<br />硬件全开源<br />有上位机 |
-|               |                   |             |                                                              |
+| 方案              | 实现难度-机械控制 | 实现难度-AI | 资源情况                                                     |
+| ----------------- | ----------------- | ----------- | ------------------------------------------------------------ |
+| ESP-Racer         | 中(2)             | 高(1)       | MIT License<br />基于Jetson Nano(GPU)<br />[Jupyter](https://github.com/NVIDIA-AI-IOT/jetracer.git)<br />资料少 |
+| **ESP-TurtleBot** | 低(3)             | 中(3)       | Apache-2.0 License (few BSD3, GPL3)<br />基于树莓派<br />Python ROS/[MicroROS](https://github.com/micro-ROS/micro-ROS_kobuki_demo) |
+| ESP-Puppy         | 中(1)             | 中(2)       | MIT License<br />基于树莓派4/3B<br />[Python](https://github.com/stanfordroboticsclub/StanfordQuadruped)/[ROS Kinetic](https://github.com/mike4192/spotMicro)<br />硬件全开源<br />有上位机 |
+|                   |                   |             |                                                              |
 
 **MicroROS是一组分层的库，它们可以直接重用ROS 2的库，也可以使其适应资源受限设备的功能和需求。**
 
@@ -141,21 +168,57 @@
 
 <img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125120848494.png" alt="image-20220125120848494" style="zoom:50%;" />
 
-
+* 基本移动
+* 控制（上位机、手机、遥控器）
+* 感知：避障、图传、Slam、自动跟随
+* AI：颜色识别、人脸识别、语音交互、手势识别、自动驾驶（规划和避障）
 
 ### 四、开发计划
 
 #### 4.1 任务一览：
 
-- 部署MicroROS到ESP32S3上
-- 测试IO口、通信等底层功能
-- 开发（运动、驱动、传感）结构
-- 开发相关固件
-- 调试上位机（RViz, rqt）
-- 移植控制/AI算法
+**阶段一**：
+
+- 部署MicroROS到ESP32S3上，评估内存、CPU、flash情况
+- 测试 led/ lcd、IO口、通信等底层功能
+- 学习、调试上位机（RViz, rqt）
+
+**阶段二**
+
+- Wifi 学习和测试
+- AI 算法（语音、图传、图像识别）
+
+**阶段三**
+
+* LCD UI 优化
+
+* 机器人学控制算法优化
+
+**阶段四**
+
+* 客户对接
+* 方案评估
+* 结构优化
+* 成本优化
+* 丰富构型
+
 - 开发机械臂及其控制（moveit）
 - 多机器人应用
-- **优化设计**
+
+#### 4.2 项目甘特图（Demo）
+
+| 内容                                              | 2.7-2.13 | 2.14-2.27 | 2.28-3.6 | 3.7-3.20 | 3.21-4.3 | 4.4-4.17 | 4.18-5.1 | 5.2-5.15 |
+| ------------------------------------------------- | :------: | :-------: | -------- | :------: | :------: | :------: | :------: | :------: |
+| 部署MicroROS到ESP32S3上，评估内存、CPU、flash情况 |   :o:    |           |          |          |          |          |          |          |
+| 测试 led/ lcd、IO口、通信等底层功能               |          |    :o:    |          |          |          |          |          |          |
+| 学习、调试上位机（RViz, rqt）                     |   :o:    |    :o:    |          |          |          |          |          |          |
+| **阶段一效果评估**                                |          |           |          |          |          |          |          |          |
+| Wifi 学习和测试                                   |          |           | :o:      |   :o:    |          |          |          |          |
+| AI 算法（语音、图传、图像识别）                   |          |           |          |   :o:    |   :o:    |          |          |          |
+| **阶段二效果评估**                                |          |           |          |          |          |          |          |          |
+| LCD UI优化                                        |          |           |          |          |   :o:    |   :o:    |          |          |
+| 机器人学控制算法优化                              |          |           |          |          |   :o:    |   :o:    |          |          |
+| **阶段三效果评估**                                |          |           |          |          |          |          |          |          |
 
 
 

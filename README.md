@@ -10,6 +10,7 @@
 * 21 Jan: ESP projects
 * 24 Jan: ROS, Micro ROS and Project background research
 * 25 Jan: Micro ROS, Project conceptional design and FreeRTOS
+* 26 Jan: FreeRTOS & Project opening meeting
 
 
 

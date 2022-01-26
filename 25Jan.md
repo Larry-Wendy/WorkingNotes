@@ -99,3 +99,95 @@ vTaskDelay()
 
 ### 3. 实操
 
+#### 3.1 Task创建和删除
+
+- 函数主体`void myTask()`
+- 创建`xTaskCreate()`
+- 删除`xTaskDelete(Handle)`
+  - 放外面：按句柄删除
+  - 放task里面：自己删除(NULL)
+
+#### 3.2 Task传参
+
+用创建任务时用(void*)将地址传过去，然后再在函数中转换回对应的类型
+
+* 单变量
+
+Create: `(void *) &testNum`
+
+Task: `int *pInt; pInt = (int *)pvParam;`
+
+* 数组
+
+Create: `(void *) testNum`
+
+Task: `int *pArray; pArray = (int *)pvParam;`
+
+* 结构体(多参数就用结构体传)
+
+定义结构体
+
+typedef struct  myStruct
+
+{
+
+​    int Mem1;
+
+​    float Mem2;
+
+} xStruct;
+
+xStruct xStrTest = {4, 2.2};
+
+Create: `(void *) &xStrTest`
+
+Task: `xStruct *pStrTest; pStrTest = (xt)`
+
+* 字符串
+
+ 定义字符串
+
+static const char *pString = "this is a string!";
+
+Create: `(void *)pString`
+
+Task: `char *pTxt; pTxt=(char *)pvParam; printf("i got string = %s\n",pTxt);`
+
+#### 3.3 任务的优先级
+
+默认设定优先级范围为0-24
+
+* 设定优先级：taskcreate倒数第二个参数
+
+* 查看优先级：`UBaseType_t iPriority = 0; iPriority = uxTaskPriorityGet(pxTask);`
+
+* 相同级别的优先级：谁先创建，谁先运行
+
+* 修改优先级
+
+`vTaskPrioritySet(myHandle1, 3);`
+
+#### 3.4 任务的挂起
+
+任务的状态：running（执行）, ready（就绪）, blocked（阻塞）, suspended（挂起）
+
+<img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220126190740825.png" alt="image-20220126190740825" style="zoom:50%;" />
+
+* 阻塞态有超时判断，挂起态没有
+* 任务挂起
+
+vTaskSuspend(myHandle);
+
+vTaskSuspend(NULL);
+
+vTaskResume(myHandle);
+
+* 调度器
+
+vTaskSuspendAll(); 该任务运行中不受其他任务调度的影响（对时间敏感），恢复之前不能调用其他RTOS API
+
+vTaskResumeAll();
+
+* 从中断中恢复
+
+xTaskResumeFr

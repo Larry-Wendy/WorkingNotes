@@ -41,6 +41,25 @@ rule C_EXECUTABLE_LINKER__bootloader.2eelf_
 #############################################
 # Rule for compiling C files.
 
+rule C_COMPILER____idf_hal_
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER____idf_hal_
+  command = $PRE_LINK && /home/maoyuxuan/.espressif/tools/cmake/3.20.3/bin/cmake -E rm -f $TARGET_FILE && /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ranlib $TARGET_FILE && $POST_BUILD
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
 rule C_COMPILER____idf_soc_
   depfile = $DEP_FILE
   deps = gcc
@@ -79,7 +98,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_micro-ecc_
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER____idf_hal_
+rule C_COMPILER____idf_spi_flash_
   depfile = $DEP_FILE
   deps = gcc
   command = /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -89,7 +108,7 @@ rule C_COMPILER____idf_hal_
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER____idf_hal_
+rule C_STATIC_LIBRARY_LINKER____idf_spi_flash_
   command = $PRE_LINK && /home/maoyuxuan/.espressif/tools/cmake/3.20.3/bin/cmake -E rm -f $TARGET_FILE && /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/maoyuxuan/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT

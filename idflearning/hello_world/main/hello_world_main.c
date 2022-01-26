@@ -13,31 +13,80 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 
-void app_main(void)
+// typedef struct  myStruct
+// {
+//     int Mem1;
+//     float Mem2;
+// } xStruct;
+
+// xStruct xStrTest = {4, 2.2};
+// static const char *pString = "this is a string!";
+//------------------------------------------------
+void myTask1(void *pvParam)
 {
-    printf("Hello world!\n");
+    while (1)
+    {
+        printf("task1-111\n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-    /* Print chip information */
-    esp_chip_info_t chip_info;
-    esp_chip_info(&chip_info);
-    printf("This is %s chip with %d CPU core(s), WiFi%s%s, ",
-            CONFIG_IDF_TARGET,
-            chip_info.cores,
-            (chip_info.features & CHIP_FEATURE_BT) ? "/BT" : "",
-            (chip_info.features & CHIP_FEATURE_BLE) ? "/BLE" : "");
+        vTaskSuspend(NULL);
+    }
 
-    printf("silicon revision %d, ", chip_info.revision);
+    // char *pTxt;
 
-    printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
-            (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
+    // pTxt = (char *)pvParam;
 
-    printf("Minimum free heap size: %d bytes\n", esp_get_minimum_free_heap_size());
+    // printf("i got string = %s\n", pTxt);
+    // // printf("i got struct Num2 = %f\n",pStrTest->Mem2);
 
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
+    // vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    // // while(1)
+    // {
+    //     printf("1 hello world!\n");
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    //     printf("2 hello world!\n");
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    //     printf("3 hello world!\n");
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // }
+
+    // vTaskDelete(NULL);
+}
+
+void myTask2(void *pvParam)
+{
+    while (1)
+    {
+        printf("task2-222\n");
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
+}
+
+//------------------------------------------------
+
+void app_main(void)
+{
+    TaskHandle_t myHandle1 = NULL;
+    TaskHandle_t myHandle2 = NULL;
+    UBaseType_t iPriority1 = 0;
+    UBaseType_t iPriority2 = 0;
+    xTaskCreate(myTask1, "myTask1", 2048, NULL, 1, &myHandle1);
+    xTaskCreate(myTask2, "myTask2", 2048, NULL, 2, &myHandle2);
+
+    
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
+    vTaskResume(myHandle1);
+    
+    // vTaskSuspend(myHandle1);
+    // iPriority1 = uxTaskPriorityGet(myHandle1);
+    // iPriority2 = uxTaskPriorityGet(myHandle2);
+    // printf("iPriority1 = %d\n", iPriority1);
+    // printf("iPriority2 = %d\n", iPriority2);
+    // vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    // if (myHandle != NULL)
+    //     vTaskDelete( myHandle );
 }

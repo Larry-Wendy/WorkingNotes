@@ -232,11 +232,15 @@ rosservice uri          输出服务的ROSRPC uri
 
 <img src="https://pic3.zhimg.com/80/v2-8644223a16426700b94d158a67c1bbd6_720w.jpg" alt="img" style="zoom:50%;" />
 
+<img src="https://www.theconstructsim.com/wp-content/uploads/2018/03/ROS-QA-108-Visualize-inflation-layer-in-RViz-screen.png" alt="img" style="zoom:50%;" />
+
 <img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220125152045586.png" alt="image-20220125152045586" style="zoom:50%;" />
+
+<img src="http://wiki.ros.org/rqt?action=AttachFile&do=get&target=ros_gui.png" alt="alt Screen shot of ROS GUI" style="zoom: 25%;" />
 
 | 工具      | 功能                     | Micro ROS |
 | --------- | ------------------------ | --------- |
-| Gazebo    | 仿真                     |           |
+| Gazebo    | 仿真                     | No        |
 | Webots    | 仿真                     | (ROS2)    |
 | RViz      | 传感器数据可视化(上位机) | yes       |
 | Crazyfile | 飞控系统(下位机)         | yes       |
