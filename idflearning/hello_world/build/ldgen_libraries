@@ -63,6 +63,7 @@
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/jsmn/libjsmn.a
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/json/libjson.a
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/libsodium/liblibsodium.a
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/libmicro_ros_espidf_component.a
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/mqtt/libmqtt.a
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/openssl/libopenssl.a
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/perfmon/libperfmon.a

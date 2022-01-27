@@ -612,6 +612,15 @@
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/libsodium/CMakeFiles/rebuild_cache.dir
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/libsodium/CMakeFiles/install.dir
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/libsodium/CMakeFiles/list_install_components.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/install/strip.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/install/local.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/install.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/list_install_components.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/__idf_micro_ros_espidf_component.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/libmicroros_project.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/rebuild_cache.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/clean-microros.dir
+/home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/micro_ros_espidf_component/CMakeFiles/edit_cache.dir
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/mqtt/CMakeFiles/install/strip.dir
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/mqtt/CMakeFiles/install/local.dir
 /home/maoyuxuan/WorkingNotes/idflearning/hello_world/build/esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir

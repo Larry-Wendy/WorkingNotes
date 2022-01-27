@@ -12,6 +12,8 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
+#include "esp_task_wdt.h"
+#include "freertos/queue.h"
 
 // typedef struct  myStruct
 // {
@@ -22,14 +24,31 @@
 // xStruct xStrTest = {4, 2.2};
 // static const char *pString = "this is a string!";
 //------------------------------------------------
-void myTask1(void *pvParam)
+void sendTask(void *pvParam)
 {
+    QueueHandle_t QHandle;
+    QHandle = (QueueHandle_t)pvParam;
+    BaseType_t xStatus;
+    int i = 0;
+
     while (1)
     {
-        printf("task1-111\n");
+        xStatus = xQueueSend(QHandle, &i, 0);
+        if (xStatus != pdPASS)
+        {
+            printf("send fail!\n");
+        }
+        else
+        {
+            printf("send successful!\n");
+        }
+        i++;
+        if (i == 8)
+            i = 0;
+        // printf("task1-111\n");
         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-        vTaskSuspend(NULL);
+        // vTaskSuspend(NULL);
     }
 
     // char *pTxt;
@@ -56,12 +75,32 @@ void myTask1(void *pvParam)
     // vTaskDelete(NULL);
 }
 
-void myTask2(void *pvParam)
+void recTask(void *pvParam)
 {
+    QueueHandle_t QHandle;
+    QHandle = (QueueHandle_t)pvParam;
+    BaseType_t xStatus;
+    int j = 0;
+
     while (1)
     {
-        printf("task2-222\n");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        if (uxQueueMessagesWaiting(QHandle) != 0)
+        {
+            xStatus = xQueueReceive(QHandle, &j, 0);
+            if (xStatus != pdPASS)
+            {
+                printf("rec fail!\n");
+            }
+            else
+            {
+                printf("rec j=%d\n", j);
+            }
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+        }
+        else
+        {
+            printf("no data!\n");
+        }
     }
 }
 
@@ -70,16 +109,44 @@ void myTask2(void *pvParam)
 void app_main(void)
 {
     TaskHandle_t myHandle1 = NULL;
-    TaskHandle_t myHandle2 = NULL;
-    UBaseType_t iPriority1 = 0;
-    UBaseType_t iPriority2 = 0;
-    xTaskCreate(myTask1, "myTask1", 2048, NULL, 1, &myHandle1);
-    xTaskCreate(myTask2, "myTask2", 2048, NULL, 2, &myHandle2);
+    // TaskHandle_t myHandle2 = NULL;
+    // UBaseType_t iPriority1 = 0;
+    // UBaseType_t iPriority2 = 0;
+    QueueHandle_t QHandle;
+    QHandle = xQueueCreate(5, sizeof(int));
 
-    
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-    vTaskResume(myHandle1);
-    
+    if (QHandle != NULL)
+    {
+        printf("Create queue successfully!\n");
+
+        xTaskCreate(sendTask, "sendTask", 1024 * 5, (void *)QHandle, 1, NULL);
+        xTaskCreate(recTask, "recTask", 1024 * 5, (void *)QHandle, 1, NULL);
+    }
+    else
+    {
+        printf("Can't create queue!\n");
+    }
+
+    //
+
+    // UBaseType_t iStack;
+    // while(1)
+    // {
+    //     iStack = uxTaskGetStackHighWaterMark(myHandle1);
+    //     printf("task1 iStack = %d\n", iStack);
+
+    //     vTaskDelay(3000 / portTICK_PERIOD_MS);
+    // }
+    // static char pcWriteBuffer[512] = {0};
+    // vTaskList(pcWriteBuffer);
+
+    // printf("-----------------------------------------------------------\n");
+    // printf("Name    State   Priority    Stack   Num\n");
+    // printf("%s\n",pcWriteBuffer);
+    // printf("-----------------------------------------------------------\n");
+    // // vTaskDelay(5000 / portTICK_PERIOD_MS);
+    // vTaskResume(myHandle1);
+
     // vTaskSuspend(myHandle1);
     // iPriority1 = uxTaskPriorityGet(myHandle1);
     // iPriority2 = uxTaskPriorityGet(myHandle2);

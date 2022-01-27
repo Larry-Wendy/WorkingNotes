@@ -169,7 +169,7 @@ Task: `char *pTxt; pTxt=(char *)pvParam; printf("i got string = %s\n",pTxt);`
 
 #### 3.4 任务的挂起
 
-任务的状态：running（执行）, ready（就绪）, blocked（阻塞）, suspended（挂起）
+任务的状态：executing（执行E）, ready（就绪R）, blocked（阻塞B）, suspended（挂起S）
 
 <img src="/home/maoyuxuan/.config/Typora/typora-user-images/image-20220126190740825.png" alt="image-20220126190740825" style="zoom:50%;" />
 
@@ -191,3 +191,86 @@ vTaskResumeAll();
 * 从中断中恢复
 
 xTaskResumeFr
+
+#### 3.5 任务列表
+
+`   static char pcWriteBuffer[512] = {0};`
+
+`vTaskList(char);`
+
+` printf("Name    State   Priority    Stack   Num\n");`
+
+`printf("%s\n",pcWriteBuffer);`
+
+在此之前需要打开宏定义USE_TRACE_FACILITY 和 USE_STATS_FORMATTING_FUNCTIONS
+
+消耗很多内部资源
+
+#### 3.6 堆栈
+
+StackDepth: 栈的深度（深度*宽度为空间大小）
+
+`uxTaskGetStackHighWaterMark(Handle)`
+
+printf 占用大概300多深度
+
+根据任务实际占用的堆栈修改其分配堆栈，可以节省系统资源
+
+堆栈溢出会导致系统重启
+
+#### 3.7 看门狗
+
+* 中断看门狗
+
+中断里运行时间比较长（其他中断如WIFI、idle不会被执行）会触发
+
+作用：调试、从错误中恢复
+
+调用中断器组1
+
+需要启用CONFIG_ESP_INT_WDT_TIMEOUT_MS
+
+* 任务看门狗
+
+有些任务需要多次运行，如果没有，触发任务看门狗，重启系统
+
+涉及函数：
+
+* esp_int_wdt_init()
+
+* 默认只监控idle任务，需要手动添加到watchdog list
+
+* 初始化、添加、删除、查看状态
+
+触发条件：某高优先级任务独占了CPU很久时间
+
+​	idle优先级为0，未运行
+
+解决方法：
+
+* 调用阻塞函数(`vTaskDelay()`)
+* 修改占用CPU的任务的优先级
+
+
+
+`esp_task_wdt_add(handle or NULL)`（单次）
+
+`esp_task_wdt_reset()`(放在循环里执行，多次)
+
+#### 3.8 队列传递数据
+
+* 创建
+
+`xQueueCreate(5,sizeof(int));`
+
+* 向队列发消息
+
+`xQueueSend(), xQueueSendToFront(), xQueueSendToBack()`
+
+* 从队列接收消息
+
+`uxQueueMessagesWaiting(), xQueueReceive()`
+
+#### 3.9 队列的多进单出
+
+按队列先进先出

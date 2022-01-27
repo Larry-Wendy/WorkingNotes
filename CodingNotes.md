@@ -27,3 +27,18 @@
 * **刚开始Task1的优先级为1，Task2优先级为2，后来Task1的优先级被设置为3**
   **但是在输出的时候直接输出111-222-111-222（并不是UP那样222-111-111-222）,但是查看优先级确实是3**
 
+* ninja: build stopped: subcommand failed.
+  ninja failed with exit code 1
+  * 代码有语法错误
+* vscode无法联想函数
+  * 添加一些相关头文件
+  * 软链接 命令行输ln -s ~/esp/esp-idf
+  * 添加文件夹至工作目录
+
+* 创建动态字符串
+  * 定义char指针
+  * **动态分配内存malloc(size);**
+  * 设置内容snprintf（char*, size, "xxxx%d!\n",i）;
+  * 打印：printf(char*)
+  * **释放内存：free(char*)**
+* 
