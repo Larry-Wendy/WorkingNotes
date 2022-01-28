@@ -72,11 +72,11 @@
     * 关闭终端重开
     * rm -rf build/ sdkconfig
 
-
+### MicroROS教程
 
 在计算机中安装 ROS 2 后，安装 micro-ROS 构建系统
 
-构建系统的工作流程分为四步：
+安装ROS Noetic构建系统的工作流程分为四步：
 
 - **创建步骤：**此步骤负责下载特定硬件平台所需的所有代码库和交叉编译工具链。在这些存储库中，它还将下载一组可立即使用的 micro-ROS 应用程序。
   - 修改教程中 stm32固件为esp32 `ros2 run micro_ros_setup create_firmware_ws.sh freertos esp32`
@@ -87,7 +87,73 @@
 
 
 
-### 在计算机上安装ROS2
+### 总结：有两种将 micro ros 与 esp32 一起使用的方法：
+
+* **首先是在 microros_ws 中[安装和创建 esp env](https://discourse.ros.org/t/micro-ros-porting-to-esp32/16101)**
+
+  * 在计算机上安装ROS2
+
+  * 建立microros工作目录，下载microros源码
+
+    ```
+    # Source the ROS 2 installation
+    source /opt/ros/$ROS_DISTRO/setup.bash
+    
+    # Create a workspace and download the micro-ROS tools
+    mkdir microros_ws
+    cd microros_ws
+    git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
+    
+    # Update dependencies using rosdep
+    sudo apt update && rosdep update
+    rosdep install --from-path src --ignore-src -y
+    
+    # Install pip
+    sudo apt-get install python3-pip
+    
+    # Build micro-ROS tools and source them
+    colcon build
+    source install/local_setup.bash
+    ```
+
+  * 编译、烧写固件
+
+  > ros2 run micro_ros_setup create_firmware_ws.sh freertos esp32 
+  >
+  > ros2 run micro_ros_setup configure_firmware.sh int32_publisher -t udp -i 192.168.1.105 -p 8888 
+  >
+  > 
+  >
+  > ros2 run micro_ros_setup build_firmware.sh menuconfig 
+  >
+  > *# Now go to the micro-ROS Transport Settings → WiFi Configuration menu and fill your WiFi SSID and password. Save your changes, exit the interactive menu, and run:* 
+  >
+  > ros2 run micro_ros_setup build_firmware.sh 
+  >
+  > *# Connect your ESP32 to the computer with a micro-USB cable, and run:* 
+  >
+  > ros2 run micro_ros_setup flash_firmware.sh
+
+* **在 espidf 中使用[micro ros 作为组件](https://github.com/micro-ROS/micro_ros_espidf_component)。**
+
+  * 先不要在shell中构建ROS2环境
+
+  * 安装依赖项
+
+    * >. $IDF_PATH/export.sh
+      >pip3 install catkin_pkg lark-parser empy colcon-common-extensions importlib-resources
+
+  * clone[组件](https://github.com/micro-ROS/micro_ros_espidf_component.git)到esp/esp-idf/component
+
+  * 重新get-idf
+
+  * 测试示例程序int32_publisher
+
+    * set-target esp32s3报错：工具链不匹配
+      * 关闭终端重开
+      * rm -rf build/ sdkconfig
+
+## 在计算机上安装ROS2
 
 ros2 foxy 版本默认需要ubuntu 20.04支持，因此在 18.04 上无法直接通过 apt 安装，需要从源码去编译。
 
@@ -104,7 +170,7 @@ ros2 foxy 版本默认需要ubuntu 20.04支持，因此在 18.04 上无法直接
 * 升级后python3-lark包安装出错，通过sudo dpkg -i --force-overwrite <filename>后sudo apt-get -f install 可以修复
 * 设置临时环境变量source /opt/ros/foxy/setup.bash
 
-### 安装ROS Noetic
+## 安装ROS Noetic
 
 为了之后能够运行ROS  的程序，还需安装ROS，并考虑两者共存
 
