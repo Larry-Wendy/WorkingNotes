@@ -263,7 +263,7 @@ PERL_EXECUTABLE:FILEPATH=/usr/bin/perl
 PYTHON_DEPS_CHECKED:UNINITIALIZED=1
 
 //Path to a program.
-PYTHON_EXECUTABLE:FILEPATH=/home/maoyuxuan/.espressif/python_env/idf4.4_py3.6_env/bin/python
+PYTHON_EXECUTABLE:FILEPATH=/home/maoyuxuan/.espressif/python_env/idf4.4_py3.8_env/bin/python
 
 //Allow unsafe builds. These builds ARE NOT SECURE.
 UNSAFE_BUILD:BOOL=OFF
@@ -682,11 +682,11 @@ CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Git
-FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[/usr/bin/git][v2.17.1()]
+FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[/usr/bin/git][v2.25.1()]
 //Details about finding Perl
-FIND_PACKAGE_MESSAGE_DETAILS_Perl:INTERNAL=[/usr/bin/perl][v5.26.1()]
+FIND_PACKAGE_MESSAGE_DETAILS_Perl:INTERNAL=[/usr/bin/perl][v5.30.0()]
 //Details about finding PythonInterp
-FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/maoyuxuan/.espressif/python_env/idf4.4_py3.6_env/bin/python][v3.6.9()]
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/maoyuxuan/.espressif/python_env/idf4.4_py3.8_env/bin/python][v3.8.10()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PERL_EXECUTABLE

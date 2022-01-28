@@ -72,6 +72,21 @@
     * 关闭终端重开
     * rm -rf build/ sdkconfig
 
+
+
+在计算机中安装 ROS 2 后，安装 micro-ROS 构建系统
+
+构建系统的工作流程分为四步：
+
+- **创建步骤：**此步骤负责下载特定硬件平台所需的所有代码库和交叉编译工具链。在这些存储库中，它还将下载一组可立即使用的 micro-ROS 应用程序。
+  - 修改教程中 stm32固件为esp32 `ros2 run micro_ros_setup create_firmware_ws.sh freertos esp32`
+
+- **配置步骤：**在此步骤中，用户可以选择工具链将要交叉编译的应用程序。在此步骤中还将选择一些其他选项，例如传输、代理的 IP 地址/端口（用于 UDP 传输）或设备 ID（用于串行连接）。
+- **构建步骤：**在这里进行交叉编译并生成特定于平台的二进制文件。
+- **Flash 步骤：**将上一步生成的二进制文件闪存到硬件平台内存中，以允许执行 micro-ROS 应用程序。有关 micro-ROS 构建系统的更多信息，请参见 [此处](https://github.com/micro-ROS/micro_ros_setup/tree/dashing/micro_ros_setup)。
+
+
+
 ### 在计算机上安装ROS2
 
 ros2 foxy 版本默认需要ubuntu 20.04支持，因此在 18.04 上无法直接通过 apt 安装，需要从源码去编译。
@@ -84,4 +99,13 @@ ros2 foxy 版本默认需要ubuntu 20.04支持，因此在 18.04 上无法直接
   * 报错：CMake Error at CMakeLists.txt:7 (cmake_minimum_required):
       CMake 3.11 or higher is required.  You are running version 3.10.2
   * 考虑更新CMake版本 现有：cmake version 3.10.2
-  * 
+  * 中止
+* 升级系统至20.04LTS，准备重装ROS2
+* 升级后python3-lark包安装出错，通过sudo dpkg -i --force-overwrite <filename>后sudo apt-get -f install 可以修复
+* 设置临时环境变量source /opt/ros/foxy/setup.bash
+
+### 安装ROS Noetic
+
+为了之后能够运行ROS  的程序，还需安装ROS，并考虑两者共存
+
+参考idf的设置方式，将source脚本命令在/etc/bash.bashrc中保存为get-ros和get-ros2。

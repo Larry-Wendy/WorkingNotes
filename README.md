@@ -12,6 +12,7 @@
 * 25 Jan: Micro ROS, Project conceptional design and FreeRTOS
 * 26 Jan: FreeRTOS & Project opening meeting
 * 27 Jan: FreeRTOS & ROS2
+* 28 Jan: get start with ROS2 & MicroROS
 
 
 
