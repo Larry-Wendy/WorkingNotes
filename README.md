@@ -13,6 +13,7 @@
 * 26 Jan: FreeRTOS & Project opening meeting
 * 27 Jan: FreeRTOS & ROS2
 * 28 Jan: get start with ROS2 & MicroROS
+* 7 Feb: further study of MicroROS
 
 
 

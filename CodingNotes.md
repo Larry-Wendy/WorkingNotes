@@ -41,4 +41,4 @@
   * 设置内容snprintf（char*, size, "xxxx%d!\n",i）;
   * 打印：printf(char*)
   * **释放内存：free(char*)**
-* 
+* micro ros 分支要选foxy版本
