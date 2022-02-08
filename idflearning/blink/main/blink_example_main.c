@@ -1,104 +1,83 @@
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
+/* Blink Example
 
+   This example code is in the Public Domain (or CC0 licensed, at your option.)
+
+   Unless required by applicable law or agreed to in writing, this
+   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied.
+*/
+#include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "driver/gpio.h"
 #include "esp_log.h"
-#include "esp_system.h"
+#include "led_strip.h"
+#include "sdkconfig.h"
 
-#include <uros_network_interfaces.h>
-#include <rcl/rcl.h>
-#include <rcl/error_handling.h>
-#include <std_msgs/msg/int32.h>
-#include <rclc/rclc.h>
-#include <rclc/executor.h>
-#include <rmw_microros/rmw_microros.h>
-#include "uxr/client/config.h"
+static const char *TAG = "example";
 
-#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc);vTaskDelete(NULL);}}
-#define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
+/* Use project configuration menu (idf.py menuconfig) to choose the GPIO to blink,
+   or you can edit the following line and set a number here.
+*/
+#define BLINK_GPIO CONFIG_BLINK_GPIO
 
-rcl_publisher_t publisher;
-std_msgs__msg__Int32 msg;
+static uint8_t s_led_state = 0;
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
+#ifdef CONFIG_BLINK_LED_RMT
+static led_strip_t *pStrip_a;
+
+static void blink_led(void)
 {
-RCLC_UNUSED(last_call_time);
-if (timer != NULL) {
-RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
-msg.data++;
+    /* If the addressable LED is enabled */
+    if (s_led_state) {
+        /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
+        pStrip_a->set_pixel(pStrip_a, 0, 16, 16, 16);
+        /* Refresh the strip to send data */
+        pStrip_a->refresh(pStrip_a, 100);
+    } else {
+        /* Set all LED off to clear all pixels */
+        pStrip_a->clear(pStrip_a, 50);
     }
 }
 
-void micro_ros_task(void * arg)
+static void configure_led(void)
 {
-rcl_allocator_t allocator = rcl_get_default_allocator();
-rclc_support_t support;
-
-rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
-RCCHECK(rcl_init_options_init(&init_options, allocator));
-rmw_init_options_t* rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
-
-// Static Agent IP and port can be used instead of autodisvery.
-RCCHECK(rmw_uros_options_set_udp_address(CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
-//RCCHECK(rmw_uros_discover_agent(rmw_options));
-
-// create init_options
-RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
-
-// create node
-rcl_node_t node;
-RCCHECK(rclc_node_init_default(&node, "esp32_int32_publisher", "", &support));
-
-// create publisher
-RCCHECK(rclc_publisher_init_default(
-&publisher,
-&node,
-ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-"freertos_int32_publisher"));
-
-// create timer,
-rcl_timer_t timer;
-const unsigned int timer_timeout = 1000;
-RCCHECK(rclc_timer_init_default(
-&timer,
-&support,
-RCL_MS_TO_NS(timer_timeout),
-timer_callback));
-
-// create executor
-rclc_executor_t executor;
-RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
-RCCHECK(rclc_executor_add_timer(&executor, &timer));
-
-msg.data = 0;
-
-while(1){
-rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
-usleep(10000);
-    }
-
-// free resources
-RCCHECK(rcl_publisher_fini(&publisher, &node));
-RCCHECK(rcl_node_fini(&node));
-
-vTaskDelete(NULL);
+    ESP_LOGI(TAG, "Example configured to blink addressable LED!");
+    /* LED strip initialization with the GPIO and pixels number*/
+    pStrip_a = led_strip_init(CONFIG_BLINK_LED_RMT_CHANNEL, BLINK_GPIO, 1);
+    /* Set all LED off to clear all pixels */
+    pStrip_a->clear(pStrip_a, 50);
 }
+
+#elif CONFIG_BLINK_LED_GPIO
+
+static void blink_led(void)
+{
+    /* Set the GPIO level according to the state (LOW or HIGH)*/
+    gpio_set_level(BLINK_GPIO, s_led_state);
+}
+
+static void configure_led(void)
+{
+    ESP_LOGI(TAG, "Example configured to blink GPIO LED!");
+    gpio_reset_pin(BLINK_GPIO);
+    /* Set the GPIO as a push/pull output */
+    gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
+}
+
+#endif
 
 void app_main(void)
-{   
-#ifdef UCLIENT_PROFILE_UDP
-// Start the networking if required
-ESP_ERROR_CHECK(uros_network_interface_initialize());
-#endif  // UCLIENT_PROFILE_UDP
+{
 
-//pin micro-ros task in APP_CPU to make PRO_CPU to deal with wifi:
-xTaskCreate(micro_ros_task, 
-"uros_task", 
-CONFIG_MICRO_ROS_APP_STACK, 
-NULL,
-CONFIG_MICRO_ROS_APP_TASK_PRIO, 
-NULL); 
+    /* Configure the peripheral according to the LED type */
+    configure_led();
+
+    while (1) {
+        ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
+        blink_led();
+        /* Toggle the LED state */
+        s_led_state = !s_led_state;
+        vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+    }
 }
-

@@ -24,12 +24,14 @@
   ％e以指数形式输出实数
 
 * Handle输入函数要引用地址
+
 * **刚开始Task1的优先级为1，Task2优先级为2，后来Task1的优先级被设置为3**
   **但是在输出的时候直接输出111-222-111-222（并不是UP那样222-111-111-222）,但是查看优先级确实是3**
 
 * ninja: build stopped: subcommand failed.
   ninja failed with exit code 1
   * 代码有语法错误
+
 * vscode无法联想函数
   * 添加一些相关头文件
   * 软链接 命令行输ln -s ~/esp/esp-idf
@@ -41,4 +43,22 @@
   * 设置内容snprintf（char*, size, "xxxx%d!\n",i）;
   * 打印：printf(char*)
   * **释放内存：free(char*)**
+
 * micro ros 分支要选foxy版本
+
+* build pingpong和blink程序都出错
+  * get-ros2
+  * 删掉micro-ros组件-还是报错
+  * 更新idf和工具-还是报错
+  * blink被污染,重新复制个新的
+
+* build pingpong报错显示某个lib 找不到
+
+  * 把idf中的mros component剪切到工程/componets/中
+  * 某个C静态库编译时会出现比较慢的情况
+
+* pingpong必须要ip
+
+* flash连接出错：用其他设备占USB0口，换一个USB1口
+* 存在RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));报未知错误终止程序的情况
+  * 待解决错误

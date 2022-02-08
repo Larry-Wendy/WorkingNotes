@@ -14,6 +14,7 @@
 * 27 Jan: FreeRTOS & ROS2
 * 28 Jan: get start with ROS2 & MicroROS
 * 7 Feb: further study of MicroROS
+* 8 Feb: test ping-pong between microROS(esp32) and ROS2(PC) 
 
 
 
